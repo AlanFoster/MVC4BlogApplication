@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogs.Domain", "Blogs.Domain\Blogs.Domain.csproj", "{9F0AF0BB-3079-41D9-A5DB-385FBAF7CA11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogs.Web", "Blogs.Web\Blogs.Web.csproj", "{C17FDCD6-6282-4380-8782-03EAEF0F0753}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F0AF0BB-3079-41D9-A5DB-385FBAF7CA11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F0AF0BB-3079-41D9-A5DB-385FBAF7CA11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F0AF0BB-3079-41D9-A5DB-385FBAF7CA11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F0AF0BB-3079-41D9-A5DB-385FBAF7CA11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C17FDCD6-6282-4380-8782-03EAEF0F0753}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C17FDCD6-6282-4380-8782-03EAEF0F0753}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C17FDCD6-6282-4380-8782-03EAEF0F0753}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C17FDCD6-6282-4380-8782-03EAEF0F0753}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
