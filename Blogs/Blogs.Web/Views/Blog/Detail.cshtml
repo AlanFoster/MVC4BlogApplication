@@ -4,9 +4,8 @@
     ViewBag.Title = "Detail";
 }
 
-<h2>Blog Detail</h2>
+ <h2>@Model.Title</h2>
 <div>
-    <h2>@Model.Title</h2>
     @Model.Content
 </div>
 <br />
@@ -27,4 +26,6 @@
     {
         <div>There are currently no comments</div>
     }
+    
+    @Html.ActionLink("Add Comment", "Create", "Comment", new { BlogId = Model.Id }, null)
 </div>

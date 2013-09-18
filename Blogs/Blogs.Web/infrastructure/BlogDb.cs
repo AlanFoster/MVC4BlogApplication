@@ -23,5 +23,11 @@ namespace Blogs.Web.infrastructure
         {
             get { return Blogs; }
         }
+
+        public void Save()
+        {
+            SaveChanges();
+        }
+
     }
 }

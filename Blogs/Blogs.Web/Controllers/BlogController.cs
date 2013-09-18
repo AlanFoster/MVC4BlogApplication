@@ -9,7 +9,7 @@ namespace Blogs.Web.Controllers
 {
     public class BlogController : Controller
     {
-        private IBlogDataSource _dataSource;
+        private readonly IBlogDataSource _dataSource;
 
         public BlogController(IBlogDataSource dataSource)
         {

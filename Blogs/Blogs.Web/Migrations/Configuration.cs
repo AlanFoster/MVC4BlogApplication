@@ -26,14 +26,15 @@ namespace Blogs.Web.Migrations
         // Initially populates the database with static data
         protected override void Seed(Blogs.Web.infrastructure.BlogDb context)
         {
-            var admin = new User {Name = "Admin"};
-            var guest = new User {Name = "Guest"};
-
             context.Users.AddOrUpdate(u => u.Name,
-                admin,
-                guest
+                new User {Name = "Admin"},
+                new User {Name = "Guest"}
                 );
 
+            context.SaveChanges();
+
+            var admin = context.Users.First(_ => _.Name == "Admin");
+            var guest = context.Users.First(_ => _.Name == "Guest");
 
             // Generate 5 blogs with comments
             Enumerable.Range(1, 5)

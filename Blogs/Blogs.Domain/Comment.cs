@@ -8,10 +8,11 @@ namespace Blogs.Domain
 {
     public class Comment
     {
-        public int Id { get; set; }
-        public User Poster { get; set; }
-        public Blog Blog { get; set; }
-        public string Title { get; set; }
-        public string Content { get; set; }
+        public virtual int Id { get; set; }
+        public virtual User Poster { get; set; }
+        public virtual Blog Blog { get; set; }
+        public virtual string Title { get; set; }
+        public virtual string Content { get; set; }
+        public virtual DateTime? PostDate { get; set; }
     }
 }

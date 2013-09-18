@@ -10,5 +10,6 @@ namespace Blogs.Domain
     {
         IQueryable<Blog> Blogs { get; }
         IQueryable<User> Users { get; }
+        void Save();
     }
 }
