@@ -29,7 +29,7 @@ namespace Blogs.Web.DependencyResolution {
                                         scan.TheCallingAssembly();
                                         scan.WithDefaultConventions();
                                     });
-                            x.For<IBlogDataSource>().Use<BlogDb>();
+                            x.For<IBlogDataSource>().HttpContextScoped().Use<BlogDb>();
                         });
             return ObjectFactory.Container;
         }
