@@ -8,9 +8,10 @@ namespace Blogs.Domain
 {
     public class Blog
     {
-        public int Id { get; set; }
-        public User Poster { get; set; }
-        public string Title { get; set; }
-        public string Content { get; set; }
+        public virtual int Id { get; set; }
+        public virtual User Poster { get; set; }
+        public virtual string Title { get; set; }
+        public virtual string Content { get; set; }
+        public virtual List<Comment> Comments { get; set; } 
     }
 }

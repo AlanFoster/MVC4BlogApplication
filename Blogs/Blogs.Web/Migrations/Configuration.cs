@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Blogs.Domain;
+using WebGrease.Css.Extensions;
 
 namespace Blogs.Web.Migrations
 {
@@ -28,17 +30,35 @@ namespace Blogs.Web.Migrations
             var guest = new User {Name = "Guest"};
 
             context.Users.AddOrUpdate(u => u.Name,
-                    admin,
-                    guest
-           );
+                admin,
+                guest
+                );
 
-            context.Blogs.AddOrUpdate(b => b.Title, 
-                new Blog { Poster = admin, Title = "Hello World 1", Content = "My First Post"},
-                new Blog { Poster = admin, Title = "Hello World 2", Content = "My Second Post"},
-                new Blog { Poster = admin, Title = "Hello World 3", Content = "My Third Post"},
-                new Blog { Poster = admin, Title = "Hello World 4", Content = "My Fourth Post"}
-            );
 
+            // Generate 5 blogs with comments
+            Enumerable.Range(1, 5)
+                .Select(blogId =>
+                {
+                    var blog = new Blog
+                    {
+                        Poster = admin,
+                        Title = string.Format("Hello World #{0}", blogId),
+                        Content = string.Format("Content for Blog {0}", blogId)
+                    };
+
+                    // Generate comments
+                    blog.Comments = Enumerable.Range(1, 3)
+                            .Select(commentId => new Comment
+                            {
+                                Poster = guest,
+                                Title = string.Format("Guest Post #{0}", commentId),
+                                Content = string.Format("Guest Content #{0} For Post #{1}", commentId, blogId),
+                                Blog = blog
+                            }).ToList();
+
+                    return blog;
+                })
+                .ForEach(blog => context.Blogs.AddOrUpdate(b => b.Title, blog));
         }
     }
 }

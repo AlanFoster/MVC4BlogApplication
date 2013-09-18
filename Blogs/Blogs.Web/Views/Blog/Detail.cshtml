@@ -1,0 +1,30 @@
+﻿@model Blogs.Domain.Blog
+
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h2>Blog Detail</h2>
+<div>
+    <h2>@Model.Title</h2>
+    @Model.Content
+</div>
+<br />
+<div>
+    <div><strong>Comments</strong></div>
+
+    @if (Model.Comments.Any())
+    {
+        foreach (var comment in Model.Comments)
+        {
+            <div style="margin-bottom: 20px">
+                <div style="font-weight: bold">@comment.Title</div>
+                <div>@comment.Content</div>
+            </div>
+        }
+    }
+    else
+    {
+        <div>There are currently no comments</div>
+    }
+</div>

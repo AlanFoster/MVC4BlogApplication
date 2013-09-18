@@ -4,36 +4,16 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Content)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Content)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+@foreach (var blog in Model)
+{
+    <div style="margin-bottom: 20px">
+        @*
+            Create a link with blog.Title as the text, to the detail method, in the Blogs controller, 
+            with the parameter blog.id, and null for http attributes
+        *@
+        <div style="font-weight: bold">@Html.ActionLink(blog.Title, "detail", "blog", new { blog.Id }, null)</div>
+        <div>@blog.Content</div>
+    </div>
 }
-
-</table>
