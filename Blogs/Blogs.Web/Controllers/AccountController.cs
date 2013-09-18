@@ -5,18 +5,28 @@ using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Blogs.Domain;
+using Blogs.Web.infrastructure;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
-using Blogs.Web.Filters;
 using Blogs.Web.Models;
 
 namespace Blogs.Web.Controllers
 {
+
+    // [RequireHttps] ActionFilter to require https is used
+
     [Authorize]
-    [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+        private readonly IBlogDataSource _dataSource;
+
+        public AccountController(IBlogDataSource dataSource)
+        {
+            _dataSource = dataSource;
+        }
+
         //
         // GET: /Account/Login
 
@@ -254,7 +264,7 @@ namespace Blogs.Web.Controllers
         {
             string provider = null;
             string providerUserId = null;
-
+            
             if (User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId))
             {
                 return RedirectToAction("Manage");
@@ -263,25 +273,24 @@ namespace Blogs.Web.Controllers
             if (ModelState.IsValid)
             {
                 // Insert a new user into the database
-                using (UsersContext db = new UsersContext())
+
+                var user = _dataSource.Users.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
+                // Check if user already exists
+                if (user == null)
                 {
-                    UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
-                    // Check if user already exists
-                    if (user == null)
-                    {
-                        // Insert name into the profile table
-                        db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
-                        db.SaveChanges();
+                    // Insert name into the profile table
+                    // TODO Look at unit of work pattern
+                    ((BlogDb) _dataSource).Users.Add(new User { UserName = model.UserName });
+                    _dataSource.Save();
 
-                        OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
-                        OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
+                    OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
+                    OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
 
-                        return RedirectToLocal(returnUrl);
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("UserName", "User name already exists. Please enter a different user name.");
-                    }
+                    return RedirectToLocal(returnUrl);
+                }
+                else
+                {
+                    ModelState.AddModelError("UserName", "User name already exists. Please enter a different user name.");
                 }
             }
 

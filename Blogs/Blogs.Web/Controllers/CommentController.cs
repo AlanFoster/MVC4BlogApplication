@@ -31,6 +31,7 @@ namespace Blogs.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(CreateCommentViewModel viewModel)
         {
             if (ModelState.IsValid)

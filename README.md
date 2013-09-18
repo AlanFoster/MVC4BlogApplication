@@ -17,7 +17,12 @@ Some of the technologies used within this project are;
 the correct default project. Otherwise the errors will suggest you need Entity Framework installed, which may be unexpected
 if you have the wrong default project selected.
 [Explained here](http://stackoverflow.com/questions/11923077/the-entityframework-package-is-not-installed-on-project)
-
+- The `[ValidateAntiForgeryToken]` attribute needs to be placed both in a controller, and within the form that HttpPosts to the
+controller.
+```
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+```
 
 ###Conclusion
 
