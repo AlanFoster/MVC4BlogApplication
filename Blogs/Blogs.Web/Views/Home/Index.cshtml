@@ -11,17 +11,10 @@
     @Html.ActionLink("Add Blog", "Create", "Blog")    
 }
 
-
-@using (Ajax.BeginForm(
-  new AjaxOptions
-    {
-        HttpMethod = "get",
-        InsertionMode = InsertionMode.Replace,
-        UpdateTargetId = "blogList"
-    }))
-{
-    <input type="search" name="searchTerm"/>
+    
+<form action="@Url.Action("Index")" data-blog-ajax="true" data-blog-ajax-target="#blogList">
+    <input type="search" name="searchTerm" data-blog-autocomplete="@Url.Action("BlogSearch")"/>
     <input type="submit" value="Search"/>
-}
+</form>
 
 @Html.Partial("_Blogs", Model)

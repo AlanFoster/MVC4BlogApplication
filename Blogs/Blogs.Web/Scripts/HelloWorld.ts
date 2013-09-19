@@ -1,16 +1,49 @@
-// Module
-module Ajax {
+/// <reference path="typings/jquery/jquery.d.ts"/>
+/// <reference path="typings/jqueryui/jqueryui.d.ts"/>
 
-    // Class
-    export class Loader  {
-        // Constructor
-        constructor () { }
+$(() => {
+    var submitFunction = function () {
+        var ajaxForm = $(this);
+        var targetSelector = ajaxForm.attr("data-blog-ajax-target");
 
-        getFoo() {
-            return 1;
-        }
-    }
+        var jsonOptions = ((form) => {
+            var action = form.attr("action");
+            var type = form.attr("method");
+            var data = form.serialize();
 
-}
-var ans = new Ajax.Loader().getFoo();
-console.log("Successfully called TypeScript code " + ans);
+            return {
+                url: action,
+                type: type,
+                data: data
+            };
+        })(ajaxForm);
+
+        $.ajax(jsonOptions).done((replaceSelector =>
+            response => {
+                var replacement = $(response);
+                $(replaceSelector)
+                    .replaceWith(replacement);
+                replacement
+                    .effect("highlight");
+            }
+         )(targetSelector));
+
+        return false;
+    };
+
+    var createAutocomplete = function () {
+        var input = $(this);
+        input.autocomplete({
+            source: input.attr("data-blog-autocomplete"),
+            select: function (event, ui){
+                var input = $(this);
+                input.val(ui.item.label);
+
+                var parentForm = input.parents("form:first");
+                parentForm.submit();
+            }
+        });
+    };
+    $("form[data-blog-ajax='true']").submit(submitFunction);
+    $("input[data-blog-autocomplete]").each(createAutocomplete);
+});

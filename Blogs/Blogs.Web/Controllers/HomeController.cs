@@ -23,9 +23,7 @@ namespace Blogs.Web.Controllers
 
         public ActionResult Index(string searchTerm = null)
         {
-            var blogs = _dataSource.Blogs
-                .Where(blog => searchTerm == null || new[] {blog.Content, blog.Title}.Any(_ => _.Contains(searchTerm)))
-                .Take(10)
+            var blogs = filterBlogs(_dataSource.Blogs, searchTerm)
                 .Select(_ => new BlogListViewModel
                 {
                     Id = _.Id,
@@ -42,6 +40,22 @@ namespace Blogs.Web.Controllers
 
             return View(blogs);
         }
+
+
+        public ActionResult BlogSearch(string term)
+        {
+            var model = filterBlogs(_dataSource.Blogs, term)
+                .Select(blog => new {label = blog.Title/*, value = blog.Content*/});
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        private IQueryable<Blog> filterBlogs(IQueryable<Blog> blogs, string term)
+        {
+            return blogs
+                .Where(blog => term == null || new[] {blog.Content, blog.Title}.Any(_ => _.Contains(term)))
+                .Take(10);
+        } 
 
         public ActionResult About()
         {
