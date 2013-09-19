@@ -14,6 +14,18 @@ namespace Blogs.Web.infrastructure
         {
         }
 
+        /**
+         * Code first fluent model builder
+         * 
+         *   protected override void OnModelCreating(DbModelBuilder modelBuilder)
+         *   {
+         *       var blog = modelBuilder.Entity<Blog>()
+         *
+         *       blog.HasKey(b => b.Id);
+         *       blog.Property(b => b.Title).HasMaxLength(20)
+         *   }
+        */
+
         IQueryable<User> IBlogDataSource.Users
         {
             get { return Users; }
