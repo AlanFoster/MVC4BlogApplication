@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Blogs.Domain;
+using Blogs.Web.Models;
 
 namespace Blogs.Web.Controllers
 {
@@ -20,9 +21,24 @@ namespace Blogs.Web.Controllers
             this._dataSource = dataSource;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string searchTerm = null)
         {
-            var blogs = _dataSource.Blogs;
+            var blogs = _dataSource.Blogs
+                .Where(blog => searchTerm == null || new[] {blog.Content, blog.Title}.Any(_ => _.Contains(searchTerm)))
+                .Take(10)
+                .Select(_ => new BlogListViewModel
+                {
+                    Id = _.Id,
+                    Poster = _.Poster,
+                    Title = _.Title,
+                    Content = _.Content,
+                    CommentCount = _.Comments.Count()
+                });
+
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_Blogs", blogs);
+            }
 
             return View(blogs);
         }

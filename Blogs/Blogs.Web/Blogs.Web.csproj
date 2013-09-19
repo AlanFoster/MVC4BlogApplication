@@ -221,6 +221,7 @@
     <Compile Include="infrastructure\BlogDb.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\BlogListViewModel.cs" />
     <Compile Include="Models\BlogViewModel.cs" />
     <Compile Include="Models\CreateCommentViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -340,6 +341,7 @@
     <Content Include="Views\Blog\Detail.cshtml" />
     <Content Include="Views\Comment\Create.cshtml" />
     <Content Include="Views\Blog\Create.cshtml" />
+    <Content Include="Views\Home\_Blogs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

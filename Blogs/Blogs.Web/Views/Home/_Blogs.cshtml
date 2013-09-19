@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Blogs.Web.Models.BlogListViewModel>
+
+<div id="blogList">
+    @foreach (var blog in Model)
+    {
+        <div style="margin-bottom: 20px">
+            @*
+                Create a link with blog.Title as the text, to the detail method, in the Blogs controller, 
+                with the parameter blog.id, and null for http attributes
+            *@
+            <div style="font-weight: bold">@Html.ActionLink(blog.Title, "detail", "blog", new { blog.Id }, null)</div>
+            <div>@blog.Content</div>
+            <div>@Html.ActionLink(string.Format("{0} comments", blog.CommentCount), "detail", "blog", new { blog.Id }, null)</div>
+        </div>
+    }
+</div>

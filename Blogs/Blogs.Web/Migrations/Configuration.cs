@@ -57,8 +57,8 @@ namespace Blogs.Web.Migrations
 
         private static void SeedBlogs(BlogDb context, User admin, User guest)
         {
-            // Generate 5 blogs with comments
-            Enumerable.Range(1, 5)
+            // Generate blogs with comments
+            Enumerable.Range(1, 100)
                 .Select(blogId =>
                 {
                     var blog = new Blog

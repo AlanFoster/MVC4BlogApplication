@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Blogs.Domain.Blog>
+﻿@model IEnumerable<Blogs.Web.Models.BlogListViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -12,14 +12,16 @@
 }
 
 
-@foreach (var blog in Model)
+@using (Ajax.BeginForm(
+  new AjaxOptions
+    {
+        HttpMethod = "get",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "blogList"
+    }))
 {
-    <div style="margin-bottom: 20px">
-        @*
-            Create a link with blog.Title as the text, to the detail method, in the Blogs controller, 
-            with the parameter blog.id, and null for http attributes
-        *@
-        <div style="font-weight: bold">@Html.ActionLink(blog.Title, "detail", "blog", new { blog.Id }, null)</div>
-        <div>@blog.Content</div>
-    </div>
+    <input type="search" name="searchTerm"/>
+    <input type="submit" value="Search"/>
 }
+
+@Html.Partial("_Blogs", Model)
