@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Blogs.Domain;
 using Blogs.Web.Models;
+using PagedList;
 
 namespace Blogs.Web.Controllers
 {
@@ -21,7 +22,7 @@ namespace Blogs.Web.Controllers
             this._dataSource = dataSource;
         }
 
-        public ActionResult Index(string searchTerm = null)
+        public ActionResult Index(string searchTerm = null, int page = 1)
         {
             var blogs = filterBlogs(_dataSource.Blogs, searchTerm)
                 .Select(_ => new BlogListViewModel
@@ -30,8 +31,10 @@ namespace Blogs.Web.Controllers
                     Poster = _.Poster,
                     Title = _.Title,
                     Content = _.Content,
+                    PostDate = _.PostDate,
                     CommentCount = _.Comments.Count()
-                });
+                })
+                .ToPagedList(page, 10);
 
             if (Request.IsAjaxRequest())
             {
@@ -45,6 +48,7 @@ namespace Blogs.Web.Controllers
         public ActionResult BlogSearch(string term)
         {
             var model = filterBlogs(_dataSource.Blogs, term)
+                .Take(10)
                 .Select(blog => new {label = blog.Title/*, value = blog.Content*/});
 
             return Json(model, JsonRequestBehavior.AllowGet);
@@ -54,7 +58,7 @@ namespace Blogs.Web.Controllers
         {
             return blogs
                 .Where(blog => term == null || new[] {blog.Content, blog.Title}.Any(_ => _.Contains(term)))
-                .Take(10);
+                .OrderBy(_ => _.PostDate);
         } 
 
         public ActionResult About()

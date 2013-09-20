@@ -18,5 +18,12 @@ namespace Blogs.Domain
         public virtual string Title { get; set; }
         public virtual string Content { get; set; }
         public virtual List<Comment> Comments { get; set; } 
+        // Note, this is MSSQL's 'date' format type - should this ever be used explicitly?
+        //[Column(TypeName = "date")]
+   /*     [Column("DateStarted", Order = 1, TypeName = "date"),
+        DatabaseGenerated(DatabaseGeneratedOption.Computed)]*/
+        [DataType(DataType.Date)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime? PostDate { get; set; }
     }
 }

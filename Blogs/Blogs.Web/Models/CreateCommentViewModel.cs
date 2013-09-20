@@ -18,9 +18,5 @@ namespace Blogs.Web.Models
 
         [Required]
         public string Content { get; set; }
-
-        [Required]
-        [DataType(DataType.Date)]
-        public DateTime Date { get; set; }
     }
 }

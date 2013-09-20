@@ -13,5 +13,6 @@ namespace Blogs.Web.Models
         public string Title { get; set; }
         public string Content { get; set; }
         public int CommentCount { get; set; }
+        public DateTime? PostDate { get; set; }
     }
 }

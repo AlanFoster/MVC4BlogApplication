@@ -1,6 +1,10 @@
-﻿@model IEnumerable<Blogs.Web.Models.BlogListViewModel>
+﻿@model IPagedList<BlogListViewModel>
 
 <div id="blogList">
+    <div class="pagedList" data-blog-target="#blogList">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), PagedListRenderOptions.MinimalWithItemCountText)
+    </div>
+
     @foreach (var blog in Model)
     {
         <div style="margin-bottom: 20px">
@@ -10,7 +14,7 @@
             *@
             <div style="font-weight: bold">@Html.ActionLink(blog.Title, "detail", "blog", new { blog.Id }, null)</div>
             <div>@blog.Content</div>
-            <div>@Html.ActionLink(string.Format("{0} comments", blog.CommentCount), "detail", "blog", new { blog.Id }, null)</div>
+            <div>@blog.PostDate.HasValue | @Html.ActionLink(string.Format("{0} comments", blog.CommentCount), "detail", "blog", new { blog.Id }, null)</div>
         </div>
     }
 </div>

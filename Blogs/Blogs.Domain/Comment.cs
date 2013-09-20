@@ -18,7 +18,9 @@ namespace Blogs.Domain
         public virtual Blog Blog { get; set; }
         public virtual string Title { get; set; }
         public virtual string Content { get; set; }
-        [Timestamp]
-        public virtual DateTime? PostDate { get; set; }
+/*        [Column("DateCreated", Order = 1, TypeName = "date"),*/
+        [DataType(DataType.Date)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime? PostDate { get; set; }
     }
 }

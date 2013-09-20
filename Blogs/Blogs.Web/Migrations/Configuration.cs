@@ -36,6 +36,8 @@ namespace Blogs.Web.Migrations
             var guest = context.Users.First(_ => _.UserName == "guest");
 
             SeedBlogs(context, admin, guest);
+
+            context.SaveChanges();
         }
 
         private void SeedMembership()
