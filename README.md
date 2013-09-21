@@ -9,16 +9,19 @@ C# MVC4. This application is purely investigative and does not represent a real 
 
 Some of the technologies used within this project are;
 
-... TODO ...
+- [TypeScript](http://www.typescriptlang.org/)
+- Entity Framework
+- MSSQL
 
 ###Gotchas
 
 - Data Migrations - When performing `enable-migrations` within the `Package Manager Console` ensure you have selected
 the correct default project. Otherwise the errors will suggest you need Entity Framework installed, which may be unexpected
 if you have the wrong default project selected.
-[Explained here](http://stackoverflow.com/questions/11923077/the-entityframework-package-is-not-installed-on-project)
+Further to this you will need to run `update-database` if you check this out for the first time for instance.
+[As explained here](http://stackoverflow.com/questions/11923077/the-entityframework-package-is-not-installed-on-project)
 - The `[ValidateAntiForgeryToken]` attribute needs to be placed both in a controller, and within the form that HttpPosts to the
-controller.
+controller. For example;
 
 ```
 @using (Html.BeginForm()) {
@@ -35,4 +38,7 @@ This needs to be provided either manually or through a Migration file.
 
 ###Conclusion
 
-... TODO ...
+Using C# MVC4 proved to be extremely flexible and productive. I would certainly make use of the frameworks again in the future.
+In comparison to my Scala Play Blog APplication  I found the DAL to be a lot easier to handle using the Microsoft Entity Framework in
+comparison to Slick. However I found the compile time errors of Play's Model and View layer to be extremely time saving in comparison to
+the runtime errors which existed with MVC4.
