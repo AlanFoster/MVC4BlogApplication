@@ -13,6 +13,7 @@ namespace Blogs.Web.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
+
     /// <summary>
     /// Called initially with `enable-migrations` to create this configuration file.
     /// Your seed method can be called with `update-database`.
@@ -25,6 +26,7 @@ namespace Blogs.Web.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            // AutomaticMigrationDataLossAllowed = false;
         }
 
         // Initially populates the database with static data

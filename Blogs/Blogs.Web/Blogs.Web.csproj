@@ -225,6 +225,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="infrastructure\BlogDb.cs" />
+    <Compile Include="Migrations\201309202304179_Initial.cs" />
+    <Compile Include="Migrations\201309202304179_Initial.Designer.cs">
+      <DependentUpon>201309202304179_Initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\BlogListViewModel.cs" />
@@ -369,6 +373,11 @@
       <Project>{9f0af0bb-3079-41d9-a5db-385fbaf7ca11}</Project>
       <Name>Blogs.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201309202304179_Initial.resx">
+      <DependentUpon>201309202304179_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

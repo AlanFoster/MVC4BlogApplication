@@ -21,6 +21,6 @@ namespace Blogs.Domain
 /*        [Column("DateCreated", Order = 1, TypeName = "date"),*/
         [DataType(DataType.Date)]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime? PostDate { get; set; }
+        public virtual DateTime? PostDate { get; set; }
     }
 }
